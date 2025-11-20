@@ -156,9 +156,9 @@ class: large
 
 ## Área de estudio
 
-* Parcela experimental (<1000 m²) dentro del campus de la **UASD**.
+* Área del experimento: <1000 m², "Patio del FC", esquina sudoeste, dentro del campus de la **UASD**, Sede Central.
 
-* Entorno mixto de herbáceas, algunos arbustos, estructuras y pila de basura por momentos.
+* Entorno mixto de herbáceas, algunos árboles y arbustos, pasarelas y **pila e' basura temporalmente**.
 
 ---
 class: figure-slide, center, inverse, middle
@@ -235,6 +235,34 @@ knitr::include_graphics("aplic_15_mesa_IMG_20250409_145023.jpg")
 ```
 
 ---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("aplic_01_hormigueros_0_IMG_20250325_164028_peq.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("aplic_01_hormigueros_mapa.png")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("aplic_06_antenas_carro_IMG_20241110_114536.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("aplic_04_mdt_uasd.jpg")
+```
+
+---
 class: large
 
 ## Base GNSS instalada en el FC-203 (noviembre 2024, revisada periódicamente)
@@ -280,13 +308,17 @@ class: large
 
 ## Captura fotográfica
 
-* 2000+ imágenes con **OpenCamera** ajustada para fotogrametría.
+* Varios experimentos, con vídeos y fotos, buscando el diseño óptimo.
 
-* Patrón: caminata lenta, temporizador de disparo en **OpenCamera** a intervalos de 1 segundo, para garantizar con solapamientos 80% front / 70% side.
+* El diseño óptimo elegido fue el siguiente: 
 
-* Altura del teléfono: variable según usuario, 1.8–2.2 m.
+  * Conjunto de 2000+ fotografías de eje vertical, adquiridas con la app **OpenCamera**.
 
-* Condiciones: cielo nublado (luz difusa, reducción de sombras duras), sin iluminación artifical.
+  * Patrón: caminata lenta, temporizador de disparo en **OpenCamera** a intervalos de 1 segundo, para garantizar con solapamientos 80% front / 70% side.
+  
+  * Altura del teléfono: variable según usuario, 1.8–2.2 m.
+  
+  * Condiciones: cielo nublado (luz difusa, reducción de sombras duras), sin iluminación artifical.
 
 ---
 class: large
@@ -324,7 +356,6 @@ class: figure-slide, center, inverse, middle
 knitr::include_graphics("IMG_5155_detalle.jpg")
 ```
 
-
 ---
 class: large
 
@@ -344,7 +375,7 @@ class: large
 
 7. **Segmentación/extracción de objetos desde ortomosaico**
 
-Software empleado: ODM / WebODM, CloudCompare, QGIS, lenguaje Python y paquetes de procesamiento de información geográfica.
+Otros paquetes empleados: CloudCompare, QGIS, lenguaje Python y paquetes de procesamiento de información geográfica.
 
 ---
 class: figure-slide, center, inverse, middle
@@ -421,8 +452,10 @@ class: large
 ## Rugosidad y microtopografía
 
 * Cálculo de rugosidad de 3–10 cm usando DSM.
+
 * Microdepresiones, montículos y variabilidad de hojarasca.
-* Identificación de raíces.
+
+* Identificación de raíces y hojas.
 
 ---
 class: figure-slide, center, inverse, middle
@@ -444,8 +477,25 @@ class: large
 ## Cobertura vegetal y microhábitats
 
 * Clasificación manual y automática por textura y color.
+
 * Identificación de herbáceas, plántulas, brotes nuevos.
+
 * Diferenciación de parches densos vs dispersos.
+
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("ortomosaico-parches.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("segmentacion.jpg")
+```
 
 ---
 class: large
@@ -453,6 +503,7 @@ class: large
 ## Basura y evidencias de impacto
 
 * Plásticos, papeles, botellas y restos metálicos visibles en el ortomosaico.
+
 * Permite cuantificar índices de perturbación en microescala.
 
 ---
@@ -463,12 +514,19 @@ knitr::include_graphics("nube-de-puntos-basura.jpg")
 ```
 
 ---
+class: large, inverse, middle, center
+
+# Desafíos en curso
+
+---
 class: large
 
 ## Segmentación automática (Google Colab)
 
-* Uso de redes como **Segment Anything**, **DeepLab**, **U²-Net**.
+* Uso de redes como **Segment Anything**, **DeepLab**, **U-Net**.
+
 * Segmentación de hojas, hierbas, basura.
+
 * Máscaras exportadas a GIS para análisis espacial.
 
 ---
@@ -477,6 +535,7 @@ class: large
 ## Clasificación de plantas y estructuras
 
 * Separación de grupos funcionales (hierbas/arbustos).
+
 * Extracción de parámetros morfológicos:
 
   * Área foliar proyectada
@@ -492,12 +551,10 @@ class: large
 **CloudCompare** incluye herramientas útiles:
 
 * “**Compute 2.5D volume**”
-* “**Delaunay 2.5D**”
-* “**Volume between two surfaces (DTM vs DSM)**”
 
-Flujo recomendado:
-DSM − DTM → estimar volumen → multiplicar por densidad seca promedio (según literatura).
-]
+* “**Delaunay 2.5D**”
+
+* “**Volume between two surfaces (DTM vs DSM)**”
 
 ---
 class: large
@@ -505,8 +562,11 @@ class: large
 ## Aplicaciones ecológicas
 
 * Heterogeneidad estructural del hábitat.
+
 * Microdistribución de especies.
+
 * Identificación de microcorredores y refugios.
+
 * Estimación rápida de biomasa en herbáceas.
 
 ---
@@ -515,8 +575,11 @@ class: large
 ## Perspectivas
 
 * Integración con sensores adicionales (humedad, temperatura del suelo).
+
 * Entrenamiento de modelos de clasificación específicos para el campus.
+
 * Monitoreo temporal (cada 3–6 meses).
+
 * Construcción de modelos de distribución a escala de pocos metros.
 
 ---
@@ -538,13 +601,15 @@ class: large, inverse, center, middle
 <br>
 
 <img src="email-icon.png" style="display: inline-block; vertical-align: middle;" width="48"/> jmartinez19@uasd.edu.do
+<br>
 <img src="gh-icon.png" style="display: inline-block; vertical-align: middle;" width="48"/> geofis
 
 <br>
 <br>
-
+<br>
 
 <img src="email-icon.png" style="display: inline-block; vertical-align: middle;" width="48"/> amarmolejo86@uasd.edu.do
+<br>
 <img src="gh-icon.png" style="display: inline-block; vertical-align: middle;" width="48"/> arlenina
 
 
