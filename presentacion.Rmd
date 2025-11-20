@@ -1,0 +1,552 @@
+---
+title: "Fotogrametría terrestre de ultra alta resolución aplicada a la evaluación de hábitat y diversidad biológica en microescala"
+subtitle: "<small>https://geofis.github.io/ciidi-uasd-2025-fotogrametria-terrestre-aplicada/presentacion.html</small>"
+author: "José Ramón Martínez Batlle; Arlen Marmolejo Hernández"
+institute: "Universidad Autónoma de Santo Domingo (UASD)"
+date: "Actualizado: `r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    lib_dir: null
+    mathjax: "default"
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+class: center, middle, title-slide, inverse
+
+IV Congreso Internacional de Investigación, Desarrollo e Innovación (I+D+I) <br> y la XXIV Jornada de Investigación Científica (2025)
+
+## Fotogrametría terrestre de ultra alta resolución aplicada a la evaluación de hábitat y diversidad biológica en microescala
+
+<small>https://geofis.github.io/ciidi-uasd-2025-fotogrametria-terrestre-aplicada/presentacion.html</small>  
+
+**José Ramón Martínez Batlle; Arlen Marmolejo Hernández**
+
+Universidad Autónoma de Santo Domingo (UASD)  
+
+![](qr-presentacion.png)
+
+---
+class: large
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width = 12, 
+  fig.height = 8, 
+  fig.retina = 3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = FALSE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+library(ggplot2)
+library(dplyr)
+library(knitr)
+library(ggrepel)
+```
+
+```{css, echo=FALSE}
+.title-slide {
+  <!-- background-image: url('fondo.jpg'); -->
+  background-size: cover;
+  background-position: center;
+}
+
+.title-slide .remark-slide-content {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+}
+
+.large { font-size: 150% }
+.medium { font-size: 130% }
+.small { font-size: 110% }
+.tiny { font-size: 80% }
+
+.green { color: #2E8B57; }
+.blue { color: #4169E1; }
+.red { color: #DC143C; }
+
+.highlight {
+  background-color: #ffff99;
+  padding: 2px 4px;
+}
+
+.box {
+  background-color: #f0f8ff;
+  border: 2px solid #4169E1;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px 0;
+}
+
+.equation {
+  background-color: #f5f5f5;
+  border-left: 5px solid #2E8B57;
+  padding: 15px;
+  margin: 10px 0;
+  font-family: 'Courier New', monospace;
+}
+
+/* Ocultar número de diapositiva */
+.remark-slide-number {
+  display: none;
+}
+
+/* Diapositiva dedicada a una figura (sin márgenes internos) */
+.remark-slide-content.figure-slide {
+  padding: 0;
+}
+
+/* Quitar margen del párrafo que envuelve la imagen */
+.remark-slide-content.figure-slide p {
+  margin: 0;
+}
+
+/* Imagen centrada */
+.remark-slide-content.figure-slide img {
+  display: block;
+  margin: 0 auto;
+}
+```
+
+## Motivación
+
+.box[
+
+La caracterización ecológica en **microescala (<1000 m²)** requiere:
+
+* Resolución espacial **subcentimétrica**
+* Caracterización de hábitat para fauna terrestre de interés científico (e.g. *Zachrysia provisoria*)
+* Registro geométrico preciso
+* Identificación de elementos pequeños (hojas, brotes, basura, microfauna)
+* Métricas estructurales finas del hábitat
+
+]
+
+**La fotogrametría terrestre + GNSS de alta precisión ofrece un marco potente y accesible.**
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("Zachrysia_IMG_9647.jpg")
+```
+
+---
+class: large
+
+## Objetivos
+
+* Evaluar el potencial de la fotogrametría terrestre usando **smartphones** + **GNSS RTK/PPK**.
+
+* Generar productos fotogramétricos de ultra alta resolución.
+
+* Derivar métricas de hábitat y proxies de biomasa.
+
+* Explorar segmentación automática y clasificación básica de objetos biológicos y no biológicos.
+
+---
+class: large
+
+## Área de estudio
+
+* Parcela experimental (<1000 m²) dentro del campus de la **UASD**.
+
+* Entorno mixto de herbáceas, algunos arbustos, estructuras y pila de basura por momentos.
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r, out.width='80%'}
+knitr::include_graphics("area-de-estudio.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r, out.width='80%'}
+knitr::include_graphics("IMG_20250530_102952_peq.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r, out.width='80%'}
+knitr::include_graphics("IMG_20250530_102841_peq.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r, out.width='80%'}
+knitr::include_graphics("basura_20250502_122328.jpg")
+```
+
+
+---
+class: large
+
+## Construcción del sistema GNSS rover
+
+* Basado en receptores **multiconstelación / doble y triple frecuencia** (u-blox ZED-F9P, Unicore UM980).
+
+* Integrados y ensamblados *in-house*.
+
+* Antena GNSS montada sobre mástil.
+
+* Sistema de alimentación estable (baterías, BMS, LDO optimizado, disipación térmica).
+
+* Registro continuo de RTCM y formato propietario.
+
+* Generación de soluciones RTK FIX usando base del aula FC-203 (descrita en la siguiente diapositiva), formato NMEA.
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r, out.width='80%'}
+knitr::include_graphics("0_0_0_partes-general.jpg")
+```
+
+---
+class: figure-slide, center, middle
+
+```{r, out.width='80%'}
+knitr::include_graphics("0_0_esquematico.png")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("aplic_05_receptores_IMG_20241109_224524_peq.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("aplic_15_mesa_IMG_20250409_145023.jpg")
+```
+
+---
+class: large
+
+## Base GNSS instalada en el FC-203 (noviembre 2024, revisada periódicamente)
+
+* Instalación de estación base fija en la Facultad de Ciencias, edificio FC-203.
+
+* Antena de plato montada con anclaje permanente.
+
+* Colecta continua para posprocesamiento (PPK), por si hiciera falta (no fue necesario).
+
+* Referencia estable para geotagging centimétrico de las imágenes.
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("aplic_08_receptor_base_arriba_IMG_20250126_211012.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("aplic_07_antena_base_fc_IMG_20241116_140933.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("base-sigcart.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("base-sigcart-2-dias-nrcan-csrs-ppp.jpg")
+```
+
+---
+class: large
+
+## Captura fotográfica
+
+* 2000+ imágenes con **OpenCamera** ajustada para fotogrametría.
+
+* Patrón: caminata lenta, temporizador de disparo en **OpenCamera** a intervalos de 1 segundo, para garantizar con solapamientos 80% front / 70% side.
+
+* Altura del teléfono: variable según usuario, 1.8–2.2 m.
+
+* Condiciones: cielo nublado (luz difusa, reducción de sombras duras), sin iluminación artifical.
+
+---
+class: large
+
+## Geotagging RTK/PPK
+
+.box[
+
+* Correcciones desde la base FC-203.
+
+* Soluciones NMEA del rover transferidas al teléfono en modo desarrollador, *mock location* activada para el *geotagging*.
+
+* Precisión obtenida: **~1.5 cm**.
+
+]
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("IMG_20250530_102905_peq.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("IMG_5155_peq.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("IMG_5155_detalle.jpg")
+```
+
+
+---
+class: large
+
+## Pipeline fotogramétrico basado en OpenDroneMap
+
+1. **Alineamiento de imágenes (SFM)**
+
+2. **Nube de puntos densa**
+
+3. **Modelo digital de superficie (DSM)**
+
+4. **Modelo digital del terreno (DTM)**
+
+5. **Ortomosaico submilimétrico**
+
+6. **Limpieza de nube de puntos**
+
+7. **Segmentación/extracción de objetos desde ortomosaico**
+
+Software empleado: ODM / WebODM, CloudCompare, QGIS, lenguaje Python y paquetes de procesamiento de información geográfica.
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("memoria-384-GB.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("memoria-1p88TB-DO.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("memoria-384GB-48-nucleos-webodm.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("webodm-cargando.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("procesando-en-webodm.gif")
+```
+
+---
+class: large
+
+## Resoluciones obtenidas
+
+* GSD promedio: **1 mm/pixel**
+
+* Precisión horizontal RTK/PPK: **1–2 cm**
+
+* Precisión vertical: **2–3 cm**
+
+* Nube de puntos: ~70 millones de puntos
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("ortomosaico.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("nube-de-puntos-01.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r, out.width='50%'}
+knitr::include_graphics("moviendo-nube-de-puntos-en-cc.gif")
+```
+
+---
+class: large
+
+## Rugosidad y microtopografía
+
+* Cálculo de rugosidad de 3–10 cm usando DSM.
+* Microdepresiones, montículos y variabilidad de hojarasca.
+* Identificación de raíces.
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("rugosidad.jpg")
+```
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("ortomosaico-detalle.jpg")
+```
+
+---
+class: large
+
+## Cobertura vegetal y microhábitats
+
+* Clasificación manual y automática por textura y color.
+* Identificación de herbáceas, plántulas, brotes nuevos.
+* Diferenciación de parches densos vs dispersos.
+
+---
+class: large
+
+## Basura y evidencias de impacto
+
+* Plásticos, papeles, botellas y restos metálicos visibles en el ortomosaico.
+* Permite cuantificar índices de perturbación en microescala.
+
+---
+class: figure-slide, center, inverse, middle
+
+```{r}
+knitr::include_graphics("nube-de-puntos-basura.jpg")
+```
+
+---
+class: large
+
+## Segmentación automática (Google Colab)
+
+* Uso de redes como **Segment Anything**, **DeepLab**, **U²-Net**.
+* Segmentación de hojas, hierbas, basura.
+* Máscaras exportadas a GIS para análisis espacial.
+
+---
+class: large
+
+## Clasificación de plantas y estructuras
+
+* Separación de grupos funcionales (hierbas/arbustos).
+* Extracción de parámetros morfológicos:
+
+  * Área foliar proyectada
+  * Altura (DSM − DTM)
+  * Volumen aproximado
+
+---
+class: large
+
+## Estimación de volumen y biomasa
+
+.box[
+**CloudCompare** incluye herramientas útiles:
+
+* “**Compute 2.5D volume**”
+* “**Delaunay 2.5D**”
+* “**Volume between two surfaces (DTM vs DSM)**”
+
+Flujo recomendado:
+DSM − DTM → estimar volumen → multiplicar por densidad seca promedio (según literatura).
+]
+
+---
+class: large
+
+## Aplicaciones ecológicas
+
+* Heterogeneidad estructural del hábitat.
+* Microdistribución de especies.
+* Identificación de microcorredores y refugios.
+* Estimación rápida de biomasa en herbáceas.
+
+---
+class: large
+
+## Perspectivas
+
+* Integración con sensores adicionales (humedad, temperatura del suelo).
+* Entrenamiento de modelos de clasificación específicos para el campus.
+* Monitoreo temporal (cada 3–6 meses).
+* Construcción de modelos de distribución a escala de pocos metros.
+
+---
+class: large
+
+## Conclusiones
+
+* La fotogrametría terrestre con **equipos de bajo costo** puede alcanzar **resolución submilimétrica**.
+* Integrada con GNSS de triple frecuencia, proporciona un marco robusto para estudios ecológicos finos.
+* El enfoque es reproducible, económico y escalable.
+
+---
+class: large, inverse, center, middle
+
+# Gracias por su atención
+
+<section style="font-size: 36px; text-align: center;">
+
+<br>
+
+<img src="email-icon.png" style="display: inline-block; vertical-align: middle;" width="48"/> jmartinez19@uasd.edu.do
+<img src="gh-icon.png" style="display: inline-block; vertical-align: middle;" width="48"/> geofis
+
+<br>
+<br>
+
+
+<img src="email-icon.png" style="display: inline-block; vertical-align: middle;" width="48"/> amarmolejo86@uasd.edu.do
+<img src="gh-icon.png" style="display: inline-block; vertical-align: middle;" width="48"/> arlenina
+
+
+</section>
+
