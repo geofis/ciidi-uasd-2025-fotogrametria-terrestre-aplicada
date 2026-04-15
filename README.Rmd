@@ -1,0 +1,26 @@
+---
+title: "Fotogrametría terrestre de ultra alta resolución aplicada a la evaluación de hábitat y diversidad biológica en microescala"
+output: github_document
+lang: es
+editor_options: 
+  chunk_output_type: console
+---
+
+<!-- README.md se genera a partir de README.Rmd. Por favor, edita ese archivo. -->
+
+**Presentación en el IV Congreso Internacional de Investigación, Desarrollo e Innovación (I+D+I), UASD, 2025**
+
+**José-Ramón Martínez-Batlle**  
+Facultad de Ciencias, Universidad Autónoma de Santo Domingo (UASD)  
+Santo Domingo, República Dominicana  
+<jmartinez19@uasd.edu.do>  
+ORCID: [0000-0001-9924-0327](https://orcid.org/0000-0001-9924-0327)
+
+Enlace a la presentación de diapositivas:  
+<https://geofis.github.io/ciidi-uasd-2025-fotogrametria-terrestre-aplicada/presentacion.html>
+
+Número de palabras en el resumen: `r source('R/contar-palabras.R'); contarpalabras()`
+
+## Resumen
+
+La fotogrametría terrestre de alta resolución se ha convertido en una herramienta poderosa para el estudio detallado de la estructura del hábitat y la diversidad biológica. En este trabajo se presenta una aplicación experimental realizada en un terreno de menos de 1000 metros cuadrados dentro del campus de la UASD, con el objetivo de evaluar el potencial de la fotogrametría basada en cámaras de teléfonos móviles para la caracterización ecológica en microescala. Se capturaron más de 2000 imágenes utilizando la aplicación OpenCamera y un sistema de geotagueo con técnicas de navegación satelital por satélite con cinemática en tiempo real y en posproceso, usando equipos multiconstelación y de triple frecuencia de bajo costo, logrando precisiones centimétricas en la georreferenciación y una resolución espacial submilimétrica. A partir de las imágenes, usando software fotogramétrico, se generaron productos fotogramétricos —nube de puntos densa, ortomosaico, modelo digital de superficie y modelo digital del terreno— que permiten analizar la heterogeneidad estructural y espacial del sitio. Estos productos posibilitan derivar métricas de rugosidad, cobertura vegetal, evidencia de impacto y microhábitats, así como estimar proxies de biomasa aérea en herbáceas y patrones de distribución potencial de especies a nivel local. El estudio demuestra que, incluso con equipos de bajo costo, la fotogrametría terrestre combinada con navegación satelital de alta precisión ofrece un marco metodológico robusto para investigar procesos ecológicos en microescala. Se discuten las aplicaciones en ecología del paisaje, biogeografía de corto alcance e interacción entre especies, así como las perspectivas para el monitoreo automatizado de la vegetación y el desarrollo de modelos de distribución de especies en entornos reducidos. Los resultados subrayan el valor de integrar técnicas accesibles y de alta precisión para ampliar las posibilidades de observación ecológica, mejorar la planificación del muestreo y fortalecer las capacidades de investigación en contextos universitarios y de conservación.
